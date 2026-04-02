@@ -11,3 +11,146 @@ generator client {
 datasource db {
   provider = "sqlite"
 }
+
+enum Role{
+  STUDENT
+  TEACHER
+}
+
+enum Status{
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model User{
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  role Role @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacherProfile TeacherProfile?
+  studentProfile StudentProfile?
+}
+
+model TeacherProfile{
+  id String @id @default(uuid())
+  bio String?
+  description String?
+  price Float
+  avatarUrl String?
+
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+
+  teacherLanguageTaught TeacherLanguageTaught[]
+  teacherLanguageSpoken TeacherLanguageSpoken[]
+  savedTeacher SavedTeacher[]
+  weeklyAvailability WeeklyAvailability[]
+  availabilityOverride AvailabilityOverride[]
+  appointment Appointment[]
+}
+
+model StudentProfile{
+  id String @id @default(uuid())
+
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+
+  studentLanguageGoal StudentLanguageGoal[]
+  savedTeacher SavedTeacher[]
+  appointment Appointment[]
+}
+
+model Language{
+  id String @id @default(uuid())
+  name String
+  code String @unique
+
+  teacherLanguageTaught TeacherLanguageTaught[]
+  teacherLanguageSpoken TeacherLanguageSpoken[]
+  studentLanguageGoal StudentLanguageGoal[]
+}
+
+//Idioma que o professor ensina
+model TeacherLanguageTaught{
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+  languageId String
+  language Language @relation(fields: [languageId], references: [id])
+
+  @@id([teacherProfileId, languageId])
+}
+
+//Idioma falado pelo professor
+model TeacherLanguageSpoken{
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+  languageId String
+  language Language @relation(fields: [languageId], references: [id])
+
+  @@id([teacherProfileId, languageId])
+}
+
+//Idioma que o aluno quer aprender
+model StudentLanguageGoal{
+  studentProfileId String
+  studentProfile StudentProfile @relation(fields: [studentProfileId], references: [id])
+  languageId String
+  language Language @relation(fields: [languageId], references: [id])
+
+  @@id([studentProfileId, languageId])
+}
+
+//Professor salvo pelo aluno (favoritos)
+model SavedTeacher{
+  savedAt DateTime @default(now())
+
+  studentProfileId String
+  studentProfile StudentProfile @relation(fields: [studentProfileId], references: [id])
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+
+  @@id([studentProfileId, teacherProfileId])
+}
+
+//Horários fixos da semana (a "grade" recorrente do professor)
+model WeeklyAvailability{
+  id String @id @default(uuid())
+  dayOfWeek Int
+  startTime String
+
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+
+  @@unique([teacherProfileId, dayOfWeek, startTime])
+}
+
+//Exceções por dia — substitui ou complementa a grade fixa ou bloqueia o dia
+model AvailabilityOverride{
+  id String @id @default(uuid())
+  date DateTime
+  startTime String @default("ALL_DAY")
+
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+
+  @@unique([teacherProfileId, date, startTime])
+}
+
+model Appointment{
+  id String @id @default(uuid())
+  date DateTime
+  startTime String
+  status Status @default(PENDING)
+  createdAt DateTime @default(now())
+
+  studentProfileId String
+  studentProfile StudentProfile @relation(fields: [studentProfileId], references: [id])
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+}
