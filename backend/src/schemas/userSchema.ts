@@ -16,7 +16,7 @@ const teacherSchema = z.object({
 });
 
 const studentSchema = z.object({
-    languageGoals: z.array(z.string()).min(1, "Informe ao menos um idioma que quer aprender"),
+    studentLanguageGoal: z.array(z.string()).min(1, "Informe ao menos um idioma que quer aprender"),
 });
 
 export const createTeacherSchema = z.object({
