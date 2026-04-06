@@ -39,8 +39,8 @@ model User{
 
 model TeacherProfile{
   id String @id @default(uuid())
-  bio String?
-  description String?
+  bio String
+  description String
   price Float
   avatarUrl String?
 
