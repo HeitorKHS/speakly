@@ -1,7 +1,7 @@
 import { prisma } from "../libs/prisma";
-import { CreateTeacherSchema, CreateStudentSchema, LoginSchema } from "../schemas/userSchema";
+import { CreateTeacherSchema, CreateStudentSchema } from "../schemas/authSchema";
 
-export class UserRepository{
+export class AuthRepository{
 
     async findUserByEmail(email: string){
         return prisma.user.findUnique({where: {email}});

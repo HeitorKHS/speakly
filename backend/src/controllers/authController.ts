@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { UserService } from "../services/userService";
-import { createTeacherSchema, createStudentSchema, loginSchema } from "../schemas/userSchema";
+import { AuthService } from "../services/authService";
+import { createTeacherSchema, createStudentSchema, loginSchema } from "../schemas/authSchema";
 
 {/*
     Código de erro
@@ -11,16 +11,16 @@ import { createTeacherSchema, createStudentSchema, loginSchema } from "../schema
     500 - Erro no servidor
 */}
 
-const userService = new UserService();
+const authService = new AuthService();
 
-export class UserController{
+export class AuthController{
 
     async createTeacher(request: FastifyRequest, reply: FastifyReply){
 
         try {
             
             const body = createTeacherSchema.parse(request.body);
-            const user = await userService.createTeacher(body);
+            const user = await authService.createTeacher(body);
             return reply.status(201).send(user);
 
         } catch(error:any) {
@@ -44,7 +44,7 @@ export class UserController{
         try {
             
             const body = createStudentSchema.parse(request.body);
-            const user = await userService.createStudent(body);
+            const user = await authService.createStudent(body);
             return reply.status(201).send(user);
 
         } catch(error:any) {
@@ -68,7 +68,7 @@ export class UserController{
         try {
             
             const body = loginSchema.parse(request.body);
-            const user = await userService.login(body);
+            const user = await authService.login(body);
             const token = await reply.jwtSign({
                 sub: user.id,
                 role: user.role,
