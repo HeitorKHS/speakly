@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const userSchema = z.object({
     name: z.string().min(1, "Nome é obrigatorio"),
-    email: z.email("Email inválido"),
+    email: z.email("E-mail inválido"),
     password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
 });
 
@@ -19,6 +19,11 @@ const studentSchema = z.object({
     studentLanguageGoal: z.array(z.string()).min(1, "Informe ao menos um idioma que quer aprender"),
 });
 
+export const loginSchema = z.object({
+    email: z.email("E-mail inválido"),
+    password: z.string().min(1, "A senha é obrigatória."),
+});
+
 export const createTeacherSchema = z.object({
     ...userSchema.shape,
     ...teacherSchema.shape,
@@ -31,3 +36,4 @@ export const createStudentSchema = z.object({
 
 export type CreateTeacherSchema = z.infer<typeof createTeacherSchema>;
 export type CreateStudentSchema = z.infer<typeof createStudentSchema>;
+export type LoginSchema = z.infer<typeof loginSchema>;

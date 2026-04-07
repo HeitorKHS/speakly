@@ -1,5 +1,5 @@
 import { prisma } from "../libs/prisma";
-import { CreateTeacherSchema, CreateStudentSchema } from "../schemas/userSchema";
+import { CreateTeacherSchema, CreateStudentSchema, LoginSchema } from "../schemas/userSchema";
 
 export class UserRepository{
 

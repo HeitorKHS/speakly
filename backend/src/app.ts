@@ -1,8 +1,10 @@
 import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
+import fastifyJwt from "@fastify/jwt";
+import { env } from "./env";
 
 //import routes
-import { userRouter } from "./routes/userRouter";
+import { routes } from "./routes";
 
 export const app = Fastify({ logger: true });
 
@@ -12,5 +14,12 @@ app.register(fastifyCors, {
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
 });
 
+app.register(fastifyJwt, {
+    secret: env.JWT_SECRET,
+    sign: {
+        expiresIn: "7d",
+    },
+});
+
 //routes
-app.register(userRouter, {prefix: "/register"});
+app.register(routes);

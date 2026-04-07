@@ -5,7 +5,8 @@ const userController = new UserController();
 
 export async function userRouter(app: FastifyInstance){
 
-    app.post("/teacher", (req, reply) => userController.createTeacher(req, reply));
-    app.post("/student", (req, reply) => userController.createStudent(req, reply));
+    app.post("/register/teacher", (request, reply) => userController.createTeacher(request, reply));
+    app.post("/register/student", (request, reply) => userController.createStudent(request, reply));
+    app.post("/login", (request, reply) => userController.login(request, reply));
 
 }

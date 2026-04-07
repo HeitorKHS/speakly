@@ -1,9 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { UserService } from "../services/userService";
-import { createTeacherSchema, createStudentSchema } from "../schemas/userSchema";
+import { createTeacherSchema, createStudentSchema, loginSchema } from "../schemas/userSchema";
 
 {/*
     Código de erro
+    200 - Operação realizada com sucesso
     201 - Criado com sucesso
     400 - Dados inválidos (erro do Zod)
     409 - E-mail já em uso
@@ -50,6 +51,35 @@ export class UserController{
             
             if(error.message === "E-mail já em uso"){
                 return reply.status(409).send({ message: error.message });
+            }
+
+            if(error?.issues){
+                return reply.status(400).send({ message: error?.issues });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+
+    async login(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            const body = loginSchema.parse(request.body);
+            const user = await userService.login(body);
+            const token = await reply.jwtSign({
+                sub: user.id,
+                role: user.role,
+            });
+
+            return reply.status(200).send(token);
+
+        } catch(error:any) {
+            
+            if(error.message === "E-mail ou senha inválidos"){
+                return reply.status(401).send({ message: error.message });
             }
 
             if(error?.issues){
