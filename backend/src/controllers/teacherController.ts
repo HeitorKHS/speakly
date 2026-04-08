@@ -17,9 +17,9 @@ export class TeacherController{
 
         try {
             
-            const { id } = request.params as {id: string};
+            const { profileId } = request.user as {profileId: string};
             const body = updateTeacherSchema.parse(request.body);
-            const teacher = await teacherService.updateProfile(id, body);
+            const teacher = await teacherService.updateProfile(profileId, body);
             return reply.status(200).send(teacher);
 
         } catch(error:any) {

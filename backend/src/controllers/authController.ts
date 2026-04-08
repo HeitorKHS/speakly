@@ -71,6 +71,7 @@ export class AuthController{
             const user = await authService.login(body);
             const token = await reply.jwtSign({
                 sub: user.id,
+                profileId: user.teacherProfile?.id ?? user.studentProfile?.id,
                 role: user.role,
             });
 

@@ -22,4 +22,48 @@ export class StudentRepository{
 
     }
 
+    async saveTeacher(studentProfileId: string, teacherProfileId: string){
+
+        return await prisma.savedTeacher.create({
+            data: {studentProfileId, teacherProfileId},
+        });
+
+    }
+
+    async removeSaveTeacher(studentProfileId: string, teacherProfileId: string){
+
+        return await prisma.savedTeacher.delete({
+            where:{
+                studentProfileId_teacherProfileId: {studentProfileId, teacherProfileId},
+            },
+            include: {
+                teacherProfile: {
+                    include: {
+                        user: { select: { name: true, email: true } },
+                        teacherLanguageTaught: { include: { language: true } },
+                        teacherLanguageSpoken: { include: { language: true } },
+                    },
+                },
+            },
+        });
+
+    }
+
+    async getSavedTeacher(studentProfileId: string){
+
+        return await prisma.savedTeacher.findMany({
+            where: {studentProfileId},
+            include: {
+                teacherProfile: {
+                    include: {
+                        user: { select: { name: true, email: true } },
+                        teacherLanguageTaught: { include: { language: true } },
+                        teacherLanguageSpoken: { include: { language: true } },
+                    },
+                },
+            },
+        });
+
+    }
+
 }

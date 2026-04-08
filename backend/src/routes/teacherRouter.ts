@@ -7,6 +7,7 @@ const teacherController = new TeacherController();
 
 export function teacherRouter(app: FastifyInstance){
 
-    app.put("/profile/:id", {preHandler: [authenticate, authorize("TEACHER")]}, (request, reply) => teacherController.updateProfile(request, reply));
+    //Perfil
+    app.put("/profile", {preHandler: [authenticate, authorize("TEACHER")]}, (request, reply) => teacherController.updateProfile(request, reply));
 
 }
