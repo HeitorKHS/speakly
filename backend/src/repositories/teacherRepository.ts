@@ -33,7 +33,11 @@ export class TeacherRepository{
                         createset: data.teacherLanguageSpoken.map(id => ({languageId: id})),
                     },
                 }),
-            }
+            },
+            include: {
+                teacherLanguageTaught: true,
+                teacherLanguageSpoken: true,
+            },
         })
 
     }
