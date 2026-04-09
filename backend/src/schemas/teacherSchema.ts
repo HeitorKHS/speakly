@@ -13,11 +13,17 @@ export const weeklyAvailabilitySchema = z.object({
     slots: z.array(
         z.object({
             dayOfWeek: z.number().min(0).max(6),
-            startTime: z.string().regex(/^([01]\d|2[0-3]):(00|30)$/, "Horário inválido.")
+            startTime: z.string().regex(/^([01]\d|2[0-3]):(00|30)$/, "Horário inválido")
             //O regex garante que o startTime está no formato correto HH:MM e que tenha intervalo de 30 minutos
         })
     )
 });
 
+export const availabilityOverrideSchema = z.object({
+    date: z.coerce.date("Data inválida"),
+    startTime: z.string().regex(/^([01]\d|2[0-3]):(00|30)$/, "Horário inválido")
+});
+
 export type UpdateTeacherSchema = z.infer<typeof updateTeacherSchema>;
 export type WeeklyAvailabilitySchema = z.infer<typeof weeklyAvailabilitySchema>;
+export type AvailabilityOverrideSchema = z.infer<typeof availabilityOverrideSchema>;

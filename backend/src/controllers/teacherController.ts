@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { updateTeacherSchema, weeklyAvailabilitySchema } from "../schemas/teacherSchema";
+import { updateTeacherSchema, weeklyAvailabilitySchema, availabilityOverrideSchema } from "../schemas/teacherSchema";
 import { TeacherService } from "../services/teacherService";
 
 {/*
@@ -42,6 +42,68 @@ export class TeacherController{
             const body = weeklyAvailabilitySchema.parse(request.body);
             const weeklyAvailabilityList = await teacherService.weeklyAvailability(profileId, body);
             return reply.status(200).send(weeklyAvailabilityList);
+
+        } catch(error:any) {
+            
+            if(error?.issues){
+                return reply.status(400).send({ message: error?.issues });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+
+    async addAvailabilityOverride(request: FastifyRequest, reply: FastifyReply){
+        
+        try {
+            
+            const { profileId } = request.user as {profileId: string};
+            const body = availabilityOverrideSchema.parse(request.body);
+            const availabilityOverride = await teacherService.addAvailabilityOverride(profileId, body);
+            return reply.status(200).send(availabilityOverride);
+
+        } catch(error:any) {
+            
+            if(error?.issues){
+                return reply.status(400).send({ message: error?.issues });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+    
+    async deleteAvailabilityOverride(request: FastifyRequest, reply: FastifyReply){
+        
+        try {
+            
+            const { profileId } = request.user as {profileId: string};
+            const { id } = request.params as {id: string};
+            const availabilityOverride = await teacherService.deleteAvailabilityOverride(profileId, id);
+            return reply.status(200).send(availabilityOverride);
+
+        } catch(error:any) {
+            
+            if(error?.issues){
+                return reply.status(400).send({ message: error?.issues });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+    
+    async getAvailabilityOverride(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            const { profileId } = request.user as {profileId: string};
+            const availabilityOverride = await teacherService.getAvailabilityOverride(profileId);
+            return reply.status(200).send(availabilityOverride);
 
         } catch(error:any) {
             

@@ -13,4 +13,9 @@ export function teacherRouter(app: FastifyInstance){
     //Disponibilidade semanal do professor
     app.put("/availability", {preHandler: [authenticate, authorize("TEACHER")]}, (request, reply) => teacherController.weeklyAvailability(request, reply));
 
+    //Alteração de disponibilidade do professor
+    app.put("/override", {preHandler: [authenticate, authorize("TEACHER")]}, (request, reply) => teacherController.addAvailabilityOverride(request, reply));
+    app.delete("/override/:id", {preHandler: [authenticate, authorize("TEACHER")]}, (request, reply) => teacherController.deleteAvailabilityOverride(request, reply));
+    app.get("/override", {preHandler: [authenticate, authorize("TEACHER")]}, (request, reply) => teacherController.getAvailabilityOverride(request, reply));
+
 }

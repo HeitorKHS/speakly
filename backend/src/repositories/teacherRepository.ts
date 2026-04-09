@@ -1,9 +1,9 @@
 import { prisma } from "../libs/prisma";
-import { UpdateTeacherSchema, WeeklyAvailabilitySchema } from "../schemas/teacherSchema";
+import { UpdateTeacherSchema, WeeklyAvailabilitySchema, AvailabilityOverrideSchema } from "../schemas/teacherSchema";
 
 export class TeacherRepository{
 
-    async updateProfile(teacherId: string, data: UpdateTeacherSchema){
+    async updateProfile(teacherProfileId: string, data: UpdateTeacherSchema){
 
         //Remove os campos undefined antes de enviar ao Prisma
         const filteredData = Object.fromEntries(
@@ -16,7 +16,7 @@ export class TeacherRepository{
         )
 
         return await prisma.teacherProfile.update({
-            where: { id: teacherId },
+            where: { id: teacherProfileId },
             data: {
                 ...filteredData,
                 //Se veio idiomas que ensina, apaga tudo e recria
@@ -61,6 +61,33 @@ export class TeacherRepository{
         return prisma.weeklyAvailability.findMany({
             where: { teacherProfileId }
         });
+
+    }
+
+    async addAvailabilityOverride(teacherProfileId: string, data: AvailabilityOverrideSchema){
+
+        await prisma.availabilityOverride.create({
+            data: {
+                teacherProfileId,
+                ...data,
+            },
+        });
+
+        return this.getAvailabilityOverride(teacherProfileId);
+
+    }
+
+    async deleteAvailabilityOverride(teacherProfileId: string, id: string){
+
+        await prisma.availabilityOverride.delete({where:{id}});
+
+        return this.getAvailabilityOverride(teacherProfileId);
+
+    }
+
+    async getAvailabilityOverride(teacherProfileId: string){
+
+        return await prisma.availabilityOverride.findMany({where: {teacherProfileId}});
 
     }
 
