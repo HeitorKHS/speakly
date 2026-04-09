@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { updateTeacherSchema } from "../schemas/teacherSchema";
+import { updateTeacherSchema, weeklyAvailabilitySchema } from "../schemas/teacherSchema";
 import { TeacherService } from "../services/teacherService";
 
 {/*
@@ -28,7 +28,28 @@ export class TeacherController{
                 return reply.status(400).send({ message: error?.issues });
             }
 
-            return reply.status(500).send({ message: "Erro do servidor interno." });
+            return reply.status(500).send({ message: "Erro no Servidor" });
+
+        }
+
+    }
+
+    async weeklyAvailability(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            const { profileId } = request.user as {profileId: string};
+            const body = weeklyAvailabilitySchema.parse(request.body);
+            const weeklyAvailabilityList = await teacherService.weeklyAvailability(profileId, body);
+            return reply.status(200).send(weeklyAvailabilityList);
+
+        } catch(error:any) {
+            
+            if(error?.issues){
+                return reply.status(400).send({ message: error?.issues });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
 
         }
 

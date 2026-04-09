@@ -1,5 +1,5 @@
 import { prisma } from "../libs/prisma";
-import { UpdateTeacherSchema } from "../schemas/teacherSchema";
+import { UpdateTeacherSchema, WeeklyAvailabilitySchema } from "../schemas/teacherSchema";
 
 export class TeacherRepository{
 
@@ -30,7 +30,7 @@ export class TeacherRepository{
                 ...(data.teacherLanguageSpoken !== undefined && {
                     teacherLanguageSpoken: {
                         deleteMany: {},
-                        createset: data.teacherLanguageSpoken.map(id => ({languageId: id})),
+                        create: data.teacherLanguageSpoken.map(id => ({languageId: id})),
                     },
                 }),
             },
@@ -39,6 +39,28 @@ export class TeacherRepository{
                 teacherLanguageSpoken: true,
             },
         })
+
+    }
+
+    async weeklyAvailability(teacherProfileId: string, data: WeeklyAvailabilitySchema){
+
+        //$transaction = todas as operações devem dar certo
+        await prisma.$transaction([
+            //Apaga toda a grade antiga
+            prisma.weeklyAvailability.deleteMany({where: {teacherProfileId}}),
+            //Cria uma nova grade
+            prisma.weeklyAvailability.createMany({
+                data: data.slots.map(slot => ({
+                    teacherProfileId,
+                    dayOfWeek: slot.dayOfWeek,
+                    startTime: slot.startTime,
+                })),
+            }),
+        ]);
+
+        return prisma.weeklyAvailability.findMany({
+            where: { teacherProfileId }
+        });
 
     }
 
