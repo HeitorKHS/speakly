@@ -58,8 +58,26 @@ export class TeacherRepository{
             }),
         ]);
 
-        return prisma.weeklyAvailability.findMany({
+        return this.getWeeklyAvailability(teacherProfileId);
+
+    }
+
+    async getWeeklyAvailability(teacherProfileId: string){
+
+        return await prisma.weeklyAvailability.findMany({
             where: { teacherProfileId }
+        });
+
+    }
+
+    async findWeeklySlot(teacherProfileId: string, dayOfWeek: number, startTime: string){
+
+        return await prisma.weeklyAvailability.findFirst({
+            where: {
+                teacherProfileId,
+                dayOfWeek,
+                startTime,
+            }
         });
 
     }
@@ -69,7 +87,9 @@ export class TeacherRepository{
         await prisma.availabilityOverride.create({
             data: {
                 teacherProfileId,
-                ...data,
+                date: new Date(data.date),
+                startTime: data.startTime,
+                type: data.type,
             },
         });
 
@@ -86,8 +106,17 @@ export class TeacherRepository{
     }
 
     async getAvailabilityOverride(teacherProfileId: string){
-
         return await prisma.availabilityOverride.findMany({where: {teacherProfileId}});
+    }
+
+    async findOverridesByDate(teacherProfileId: string, date: Date){
+
+        return await prisma.availabilityOverride.findFirst({
+            where: {
+                teacherProfileId,
+                date: new Date(date),
+            },
+        });
 
     }
 
