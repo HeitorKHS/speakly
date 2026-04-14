@@ -33,7 +33,7 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
-    "moduleResolution": "nodenext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "strict": true,
     "jsx": "react-jsx",

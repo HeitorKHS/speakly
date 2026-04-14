@@ -1,0 +1,118 @@
+'use client'
+
+import Link from "next/link";
+import { BiMenu, BiX  } from "react-icons/bi";
+import { useState } from "react";
+
+export function Header(){
+    
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+
+    return(
+
+        <header className="fixed top-0 left-0 right-0 z-50 bg-white">
+            <nav className="px-4 sm:px-6 lg:px-8 h-16.5 lg:h-18 flex justify-between items-center">
+                <Link 
+                    href={"/"} 
+                    aria-label="Ir para home"
+                    className="text-violet-700 text-xl font-bold"
+                >
+                    Speakly
+                </Link>
+                <div className="hidden lg:flex items-center text-neutral-800 font-semibold text-sm gap-15">
+                    <div className="flex items-center gap-5">
+                        <Link 
+                            href={""} 
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            Opção 1
+                        </Link>
+                        <Link
+                            href={""} 
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            Opção 2
+                        </Link>
+                        <Link
+                            href={""} 
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            Opção 3
+                        </Link>
+                        <Link 
+                            href={""} 
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            Seja um professor
+                        </Link>
+                    </div>
+                    <div className="flex items-center gap-5">
+                        <Link 
+                            href={""} 
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            Entrar
+                        </Link>
+                        <Link 
+                            href={""} 
+                            className="p-2 border border-neutral-800 rounded-lg hover:text-neutral-500 hover:border-neutral-500 transition-colors duration-300"
+                        >
+                            Criar uma conta
+                        </Link>    
+                    </div>                      
+                </div>
+                <button 
+                    className="flex lg:hidden"
+                    onClick={()=>setMobileOpen(!mobileOpen)}
+                >
+                    {mobileOpen ? <BiX size={30}/> : <BiMenu size={30}/>}
+                </button>
+            </nav>
+
+            {mobileOpen && (
+                <div className="p-4 lg:hidden flex flex-col text-neutral-800 font-semibold text-sm gap-2">
+                    <Link 
+                        href={""} 
+                        className="hover:text-neutral-500 transition-colors duration-300"
+                    >
+                        Opção 1
+                    </Link>
+                    <Link
+                        href={""} 
+                        className="hover:text-neutral-500 transition-colors duration-300"
+                    >
+                        Opção 2
+                    </Link>
+                    <Link
+                        href={""} 
+                        className="hover:text-neutral-500 transition-colors duration-300"
+                    >
+                        Opção 3
+                    </Link>
+                    <Link 
+                        href={""} 
+                        className="hover:text-neutral-500 transition-colors duration-300"
+                    >
+                        Seja um professor
+                    </Link>
+                    <div className="flex flex-col items-center mt-5 gap-5">
+                        <Link 
+                            href={""} 
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            Entrar
+                        </Link>
+                        <Link 
+                            href={""} 
+                            className="w-full text-center p-2 border border-neutral-800 rounded-lg hover:text-neutral-500 hover:border-neutral-500 transition-colors duration-300"
+                        >
+                            Criar uma conta
+                        </Link>    
+                    </div>                      
+                </div>
+            )}
+        </header>
+
+    )
+
+}

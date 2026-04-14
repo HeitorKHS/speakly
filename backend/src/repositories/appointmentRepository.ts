@@ -1,5 +1,5 @@
-import { prisma } from "../libs/prisma";
-import { CreateAppointmentSchema, UpdateAppointmentSchema } from "../schemas/appointmentSchema";
+import { prisma } from "../libs/prisma.js";
+import { CreateAppointmentSchema, UpdateAppointmentSchema } from "../schemas/appointmentSchema.js";
 
 export class AppointmentRepository{
 
