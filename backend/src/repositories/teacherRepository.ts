@@ -1,9 +1,9 @@
 import { prisma } from "../libs/prisma";
-import { UpdateTeacherSchema, WeeklyAvailabilitySchema, AvailabilityOverrideSchema } from "../schemas/teacherSchema";
+import { UpdateTeacherSchema, WeeklyAvailabilitySchema } from "../schemas/teacherSchema";
 
 export class TeacherRepository{
 
-    async updateProfile(teacherProfileId: string, data: UpdateTeacherSchema){
+    async update(teacherProfileId: string, data: UpdateTeacherSchema){
 
         //Remove os campos undefined antes de enviar ao Prisma
         const filteredData = Object.fromEntries(
@@ -16,7 +16,7 @@ export class TeacherRepository{
         )
 
         return await prisma.teacherProfile.update({
-            where: { id: teacherProfileId },
+            where: {id:teacherProfileId },
             data: {
                 ...filteredData,
                 //Se veio idiomas que ensina, apaga tudo e recria
@@ -42,12 +42,22 @@ export class TeacherRepository{
 
     }
 
-    async weeklyAvailability(teacherProfileId: string, data: WeeklyAvailabilitySchema){
+    async findById(id: string){
+
+        return await prisma.teacherProfile.findUnique({
+            where: {id},
+        });
+
+    }
+
+    async createWeeklyAvailability(teacherProfileId: string, data: WeeklyAvailabilitySchema){
 
         //$transaction = todas as operações devem dar certo
-        await prisma.$transaction([
+        return await prisma.$transaction([
             //Apaga toda a grade antiga
-            prisma.weeklyAvailability.deleteMany({where: {teacherProfileId}}),
+            prisma.weeklyAvailability.deleteMany({
+                where: {teacherProfileId},
+            }),
             //Cria uma nova grade
             prisma.weeklyAvailability.createMany({
                 data: data.slots.map(slot => ({
@@ -58,17 +68,16 @@ export class TeacherRepository{
             }),
         ]);
 
-        return this.getWeeklyAvailability(teacherProfileId);
-
     }
 
     async getWeeklyAvailability(teacherProfileId: string){
 
         return await prisma.weeklyAvailability.findMany({
-            where: { teacherProfileId }
+            where: {teacherProfileId},
         });
 
     }
+
 
     async findWeeklySlot(teacherProfileId: string, dayOfWeek: number, startTime: string){
 
@@ -82,7 +91,7 @@ export class TeacherRepository{
 
     }
 
-    async addAvailabilityOverride(teacherProfileId: string, data: AvailabilityOverrideSchema){
+    /*async addAvailabilityOverride(teacherProfileId: string, data: AvailabilityOverrideSchema){
 
         await prisma.availabilityOverride.create({
             data: {
@@ -118,6 +127,6 @@ export class TeacherRepository{
             },
         });
 
-    }
+    }*/
 
 }

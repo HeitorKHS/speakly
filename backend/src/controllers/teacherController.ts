@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { updateTeacherSchema, weeklyAvailabilitySchema, availabilityOverrideSchema } from "../schemas/teacherSchema";
+import { updateTeacherSchema, weeklyAvailabilitySchema } from "../schemas/teacherSchema";
 import { TeacherService } from "../services/teacherService";
 
 {/*
@@ -13,13 +13,13 @@ const teacherService = new TeacherService();
 
 export class TeacherController{
 
-    async updateProfile(request: FastifyRequest, reply: FastifyReply){
+    async update(request: FastifyRequest, reply: FastifyReply){
 
         try {
             
             const { profileId } = request.user as {profileId: string};
             const body = updateTeacherSchema.parse(request.body);
-            const teacher = await teacherService.updateProfile(profileId, body);
+            const teacher = await teacherService.update(profileId, body);
             return reply.status(200).send(teacher);
 
         } catch(error:any) {
@@ -34,14 +34,34 @@ export class TeacherController{
 
     }
 
-    async weeklyAvailability(request: FastifyRequest, reply: FastifyReply){
+    async get(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            const { profileId } = request.user as {profileId: string};
+            const teacher = await teacherService.get(profileId);
+            return reply.status(200).send(teacher);
+
+        } catch(error:any) {
+            
+            if(error?.issues){
+                return reply.status(400).send({ message: error?.issues });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+
+    async createWeeklyAvailability(request: FastifyRequest, reply: FastifyReply){
 
         try {
             
             const { profileId } = request.user as {profileId: string};
             const body = weeklyAvailabilitySchema.parse(request.body);
-            const weeklyAvailabilityList = await teacherService.weeklyAvailability(profileId, body);
-            return reply.status(200).send(weeklyAvailabilityList);
+            const weeklyAvailability = await teacherService.createWeeklyAvailability(profileId, body);
+            return reply.status(200).send(weeklyAvailability);
 
         } catch(error:any) {
             
@@ -55,55 +75,13 @@ export class TeacherController{
 
     }
 
-    async addAvailabilityOverride(request: FastifyRequest, reply: FastifyReply){
-        
-        try {
-            
-            const { profileId } = request.user as {profileId: string};
-            const body = availabilityOverrideSchema.parse(request.body);
-            const availabilityOverride = await teacherService.addAvailabilityOverride(profileId, body);
-            return reply.status(200).send(availabilityOverride);
-
-        } catch(error:any) {
-            
-            if(error?.issues){
-                return reply.status(400).send({ message: error?.issues });
-            }
-
-            return reply.status(500).send({ message: "Erro no servidor" });
-
-        }
-
-    }
-    
-    async deleteAvailabilityOverride(request: FastifyRequest, reply: FastifyReply){
-        
-        try {
-            
-            const { profileId } = request.user as {profileId: string};
-            const { id } = request.params as {id: string};
-            const availabilityOverride = await teacherService.deleteAvailabilityOverride(profileId, id);
-            return reply.status(200).send(availabilityOverride);
-
-        } catch(error:any) {
-            
-            if(error?.issues){
-                return reply.status(400).send({ message: error?.issues });
-            }
-
-            return reply.status(500).send({ message: "Erro no servidor" });
-
-        }
-
-    }
-    
-    async getAvailabilityOverride(request: FastifyRequest, reply: FastifyReply){
+    async getWeeklyAvailability(request: FastifyRequest, reply: FastifyReply){
 
         try {
             
             const { profileId } = request.user as {profileId: string};
-            const availabilityOverride = await teacherService.getAvailabilityOverride(profileId);
-            return reply.status(200).send(availabilityOverride);
+            const weeklyAvailability = await teacherService.getWeeklyAvailability(profileId);
+            return reply.status(200).send(weeklyAvailability);
 
         } catch(error:any) {
             

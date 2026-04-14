@@ -17,21 +17,14 @@ export class AppointmentRepository{
     }
 
     async getById(id: string){
-        return await prisma.appointment.findUnique({where: {id}});
-    }
 
-    async cancel(id: string){
-
-        return await prisma.appointment.update({
+        return await prisma.appointment.findUnique({
             where: {id},
-            data: {
-                status: "CANCELLED",
-            },
-        })
+        });
 
     }
 
-    async findByTeacher(teacherProfileId: string){
+    async getByTeacher(teacherProfileId: string){
 
         return await prisma.appointment.findMany({
             where: {teacherProfileId},
@@ -51,7 +44,7 @@ export class AppointmentRepository{
 
     }
 
-    async findByStudent(studentProfileId: string){
+    async getByStudent(studentProfileId: string){
 
         return await prisma.appointment.findMany({
             where: {studentProfileId},
@@ -90,6 +83,17 @@ export class AppointmentRepository{
             where: {id},
             data,
         });
+
+    }
+
+    async cancel(id: string){
+
+        return await prisma.appointment.update({
+            where: {id},
+            data: {
+                status: "CANCELLED",
+            },
+        })
 
     }
 

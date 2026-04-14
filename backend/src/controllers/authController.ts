@@ -69,6 +69,7 @@ export class AuthController{
             
             const body = loginSchema.parse(request.body);
             const user = await authService.login(body);
+            
             const token = await reply.jwtSign({
                 sub: user.id,
                 profileId: user.teacherProfile?.id ?? user.studentProfile?.id,

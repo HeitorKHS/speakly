@@ -1,28 +1,32 @@
 import { TeacherRepository } from "../repositories/teacherRepository";
-import { UpdateTeacherSchema, WeeklyAvailabilitySchema, AvailabilityOverrideSchema } from "../schemas/teacherSchema";
+import { UpdateTeacherSchema, WeeklyAvailabilitySchema } from "../schemas/teacherSchema";
 
 const teacherRepository = new TeacherRepository();
 
 export class TeacherService{
 
-    async updateProfile(teacherProfileId: string, data: UpdateTeacherSchema){
-        return await teacherRepository.updateProfile(teacherProfileId, data);
+    async update(teacherProfileId: string, data: UpdateTeacherSchema){
+
+        return await teacherRepository.update(teacherProfileId, data);
+
     }
 
-    async weeklyAvailability(teacherProfileId: string, data: WeeklyAvailabilitySchema){
-        return await teacherRepository.weeklyAvailability(teacherProfileId, data);
+    async get(teacherProfileId:string){
+
+        return await teacherRepository.findById(teacherProfileId);
+
     }
 
-    async addAvailabilityOverride(teacherProfileId: string, data: AvailabilityOverrideSchema){
-        return await teacherRepository.addAvailabilityOverride(teacherProfileId, data);
+    async createWeeklyAvailability(teacherProfileId: string, data: WeeklyAvailabilitySchema){
+
+        return await teacherRepository.createWeeklyAvailability(teacherProfileId, data);
+
     }
 
-    async deleteAvailabilityOverride(teacherProfileId: string, id: string){
-        return await teacherRepository.deleteAvailabilityOverride(teacherProfileId, id);
-    }
-
-    async getAvailabilityOverride(teacherProfileId: string){
-        return await teacherRepository.getAvailabilityOverride(teacherProfileId);
+    async getWeeklyAvailability(teacherProfileId: string){
+    
+        return await teacherRepository.getWeeklyAvailability(teacherProfileId);
+    
     }
 
 }

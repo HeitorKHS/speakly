@@ -3,16 +3,6 @@ import { CreateTeacherSchema, CreateStudentSchema } from "../schemas/authSchema"
 
 export class AuthRepository{
 
-    async findUserByEmail(email: string){
-        return await prisma.user.findUnique({
-            where: {email},
-            include: {
-                teacherProfile: { select: { id: true } },
-                studentProfile: { select: { id: true } },
-            },
-        });
-    }
-
     async createTeacher(data: CreateTeacherSchema, hashedPassword: string){
 
         return await prisma.user.create({
@@ -57,6 +47,18 @@ export class AuthRepository{
             },
         });
 
+    }
+
+    async login(email: string){
+
+        return await prisma.user.findUnique({
+            where: {email},
+            include: {
+                teacherProfile: { select: { id: true } },
+                studentProfile: { select: { id: true } },
+            },
+        });
+        
     }
 
 }

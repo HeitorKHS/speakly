@@ -8,11 +8,12 @@ const studentController = new StudentController();
 export function studentRouter(app: FastifyInstance){
 
     //Perfil do aluno
-    app.put("/profile", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.updateProfile(request, reply));
-    
+    app.put("/profile", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.update(request, reply));
+    app.get("/profile", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.get(request, reply));
+
     //Lista de professores salvos do aluno
-    app.post("/saved/:id", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.savedTeacher(request, reply));
-    app.delete("/saved/:id", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.removeSavedTeacher(request, reply));
-    app.get("/saved", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.getSavedTeacher(request, reply));
+    app.post("/favorited/:id", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.addTeacherToFavorite(request, reply));
+    app.delete("/favorited/:id", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.removeTeacherFromFavorite(request, reply));
+    app.get("/favorited", {preHandler: [authenticate, authorize("STUDENT")]}, (request, reply) => studentController.getFavorites(request, reply));
 
 }

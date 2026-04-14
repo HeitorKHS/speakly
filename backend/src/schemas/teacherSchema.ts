@@ -19,6 +19,8 @@ export const weeklyAvailabilitySchema = z.object({
     )
 });
 
+
+/*
 export const availabilityOverrideSchema = z.object({
     date: z.coerce.date("Data inválida"),
     startTime: z.string().regex(/^([01]\d|2[0-3]):(00|30)$/, "Horário inválido"),
@@ -30,9 +32,9 @@ export const blockDaySchema = z.object({
     slots: z.array(
         z.string().regex(/^([01]\d|2[0-3]):(00|30)$/, "Horário inválido")
     ).min(1)
-})
+})*/
 
 export type UpdateTeacherSchema = z.infer<typeof updateTeacherSchema>;
 export type WeeklyAvailabilitySchema = z.infer<typeof weeklyAvailabilitySchema>;
-export type AvailabilityOverrideSchema = z.infer<typeof availabilityOverrideSchema>;
-export type BlockDaySchema = z.infer<typeof blockDaySchema>;
+//export type AvailabilityOverrideSchema = z.infer<typeof availabilityOverrideSchema>;
+//export type BlockDaySchema = z.infer<typeof blockDaySchema>;
