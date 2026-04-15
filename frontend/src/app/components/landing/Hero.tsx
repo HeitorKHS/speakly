@@ -7,8 +7,8 @@ export function Hero(){
 
         <section className="min-h-screen pt-16.5 lg:pt-18 overflow-hidden">
             <div className="h-full md:pt-12 md:pb-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
-                    <div className="text-center md:text-left">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                    <div className="text-center lg:text-left">
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-800">Aprender <span className="text-violet-700">idiomas</span> nunca foi tão <span className="text-violet-700">simples</span></h1>
                         <p className="mt-4 lg:mt-6 text-lg text-neutral-500">Conecte-se com professores nativos e certificados do mundo inteiro. Aulas ao vivo, personalizadas e no seu ritmo</p>
                         <div className="mt-10 md:mt-20">           
@@ -22,7 +22,7 @@ export function Hero(){
                     </div>
                     <div className="relative w-full">
                         <Image
-                            src={"/img/hero_ladingpage.png"}
+                            src={"/img/hero_landingpage.png"}
                             alt="Imagen da hero ladingpage"
                             width={1774}
                             height={1024}
