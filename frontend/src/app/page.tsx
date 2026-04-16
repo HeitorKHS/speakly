@@ -1,6 +1,7 @@
 import { Hero } from "./components/landing/Hero";
 import { HowItWorks } from "./components/landing/HowItWorks";
 import { Features } from "./components/landing/Features";
+import { Languages } from "./components/landing/Languages";
 
 export default function Home(){
 
@@ -10,6 +11,7 @@ export default function Home(){
       <Hero/>
       <HowItWorks/>
       <Features/>
+      <Languages/>
     </div>
     
   );
