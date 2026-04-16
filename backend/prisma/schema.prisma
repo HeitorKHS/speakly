@@ -58,7 +58,6 @@ model TeacherProfile{
   weeklyAvailability WeeklyAvailability[]
   availabilityOverride AvailabilityOverride[]
   appointment Appointment[]
-  testimonial Testimonial[]
 }
 
 model StudentProfile{
@@ -71,19 +70,6 @@ model StudentProfile{
   studentLanguageGoal StudentLanguageGoal[]
   savedTeacher SavedTeacher[]
   appointment Appointment[]
-  testimonial Testimonial[]
-}
-
-model Testimonial{
-  id String @id @default(uuid())
-  content String
-  raiting Int
-  createdAt DateTime @default(now())
-
-  teacherProfileId String
-  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
-  studentProfileId String
-  studentProfile StudentProfile @relation(fields: [studentProfileId], references: [id])
 }
 
 model Language{

@@ -7,7 +7,6 @@ export class AuthRepository{
 
         return await prisma.user.create({
             data:{
-                name: data.name,
                 email: data.email,
                 password: hashedPassword,
                 role: "TEACHER",
@@ -35,7 +34,6 @@ export class AuthRepository{
 
         return await prisma.user.create({
             data:{
-                name: data.name,
                 email: data.email,
                 password: hashedPassword,
                 studentProfile:{
