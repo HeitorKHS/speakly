@@ -8,6 +8,7 @@ export class StudentRepository{
         return await prisma.studentProfile.update({
             where: {id: studentProfileId},
             data: {
+                ...(data.name && { name: data.name }),
                 ...(data.studentLanguageGoal !== undefined && {
                     studentLanguageGoal:{
                         deleteMany: {},
@@ -70,7 +71,6 @@ export class StudentRepository{
             include: {
                 teacherProfile: {
                     include: {
-                        user: { select: { name: true, email: true } },
                         teacherLanguageTaught: { include: { language: true } },
                         teacherLanguageSpoken: { include: { language: true } },
                     },

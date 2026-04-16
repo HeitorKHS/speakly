@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 const userSchema = z.object({
-    name: z.string().min(1, "Nome é obrigatorio"),
     email: z.email("E-mail inválido"),
     password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
 });
 
 const teacherSchema = z.object({
+    name: z.string().min(1, "Nome é obrigatorio"),
     bio: z.string().min(1, "Bio é obrigatório"),
     description: z.string().min(1, "Descrição é obrigatório"),
     price: z.number().positive("Preço deve ser maior que zero"),
@@ -16,6 +16,7 @@ const teacherSchema = z.object({
 });
 
 const studentSchema = z.object({
+    name: z.string().min(1, "Nome é obrigatorio"),
     studentLanguageGoal: z.array(z.string()).min(1, "Informe ao menos um idioma que quer aprender"),
 });
 

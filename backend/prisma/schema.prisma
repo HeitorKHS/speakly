@@ -31,7 +31,6 @@ enum Type{
 
 model User{
   id String @id @default(uuid())
-  name String
   email String @unique
   password String
   role Role @default(STUDENT)
@@ -44,6 +43,7 @@ model User{
 
 model TeacherProfile{
   id String @id @default(uuid())
+  name String
   bio String
   description String
   price Float
@@ -58,10 +58,12 @@ model TeacherProfile{
   weeklyAvailability WeeklyAvailability[]
   availabilityOverride AvailabilityOverride[]
   appointment Appointment[]
+  testimonial Testimonial[]
 }
 
 model StudentProfile{
   id String @id @default(uuid())
+  name String
 
   userId String @unique
   user User @relation(fields: [userId], references: [id])
@@ -69,6 +71,19 @@ model StudentProfile{
   studentLanguageGoal StudentLanguageGoal[]
   savedTeacher SavedTeacher[]
   appointment Appointment[]
+  testimonial Testimonial[]
+}
+
+model Testimonial{
+  id String @id @default(uuid())
+  content String
+  raiting Int
+  createdAt DateTime @default(now())
+
+  teacherProfileId String
+  teacherProfile TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+  studentProfileId String
+  studentProfile StudentProfile @relation(fields: [studentProfileId], references: [id])
 }
 
 model Language{

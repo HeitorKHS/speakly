@@ -13,6 +13,7 @@ export class AuthRepository{
                 role: "TEACHER",
                 teacherProfile:{
                     create:{
+                        name: data.name,
                         bio: data.bio,
                         description: data.description,
                         price: data.price,
@@ -39,6 +40,7 @@ export class AuthRepository{
                 password: hashedPassword,
                 studentProfile:{
                     create: {
+                        name: data.name,
                         studentLanguageGoal: {
                             create: data.studentLanguageGoal.map(id => ({languageId: id})),
                         },

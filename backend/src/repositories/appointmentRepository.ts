@@ -30,14 +30,10 @@ export class AppointmentRepository{
             where: {teacherProfileId},
             include: {
                 studentProfile: {
-                    include: {
-                        user: {
-                            select: {
-                                name: true,
-                                id: true,
-                            },
-                        },
-                    },
+                    select: {
+                        name: true,
+                        id: true,
+                    }
                 },
             },
         });
@@ -50,14 +46,10 @@ export class AppointmentRepository{
             where: {studentProfileId},
             include: {
                 teacherProfile: {
-                    include: {
-                        user: {
-                            select: {
-                                name: true,
-                                id: true,
-                            },
-                        },
-                    },
+                    select: {
+                        name: true,
+                        id: true,
+                    }
                 },
             },
         });

@@ -8,6 +8,7 @@ export class TeacherRepository{
         //Remove os campos undefined antes de enviar ao Prisma
         const filteredData = Object.fromEntries(
             Object.entries({
+                name: data.name,
                 bio: data.bio,
                 description: data.description,
                 price: data.price,
