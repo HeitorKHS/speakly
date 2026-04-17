@@ -4,6 +4,13 @@ import Link from "next/link";
 import { BiMenu, BiX  } from "react-icons/bi";
 import { useState } from "react";
 
+const links = [
+    {href: "", label: "Opção 1"},
+    {href: "", label: "Opção 2"},
+    {href: "", label: "Opção 3"},
+    {href: "", label: "Seja um professor"},
+];
+
 export function Header(){
     
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -21,30 +28,15 @@ export function Header(){
                 </Link>
                 <div className="hidden lg:flex items-center text-neutral-800 font-semibold text-sm gap-15">
                     <div className="flex items-center gap-5">
-                        <Link 
-                            href={""} 
-                            className="hover:text-neutral-500 transition-colors duration-300"
-                        >
-                            Opção 1
-                        </Link>
-                        <Link
-                            href={""} 
-                            className="hover:text-neutral-500 transition-colors duration-300"
-                        >
-                            Opção 2
-                        </Link>
-                        <Link
-                            href={""} 
-                            className="hover:text-neutral-500 transition-colors duration-300"
-                        >
-                            Opção 3
-                        </Link>
-                        <Link 
-                            href={""} 
-                            className="hover:text-neutral-500 transition-colors duration-300"
-                        >
-                            Seja um professor
-                        </Link>
+                        {links.map((link)=>(
+                            <Link
+                                key={link.label}
+                                href={link.href}
+                                className="hover:text-neutral-500 transition-colors duration-300"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}                     
                     </div>
                     <div className="flex items-center gap-5">
                         <Link 
@@ -71,30 +63,15 @@ export function Header(){
 
             {mobileOpen && (
                 <div className="p-4 lg:hidden flex flex-col text-neutral-800 font-semibold text-sm gap-2">
-                    <Link 
-                        href={""} 
-                        className="hover:text-neutral-500 transition-colors duration-300"
-                    >
-                        Opção 1
-                    </Link>
-                    <Link
-                        href={""} 
-                        className="hover:text-neutral-500 transition-colors duration-300"
-                    >
-                        Opção 2
-                    </Link>
-                    <Link
-                        href={""} 
-                        className="hover:text-neutral-500 transition-colors duration-300"
-                    >
-                        Opção 3
-                    </Link>
-                    <Link 
-                        href={""} 
-                        className="hover:text-neutral-500 transition-colors duration-300"
-                    >
-                        Seja um professor
-                    </Link>
+                    {links.map((link)=>(
+                        <Link
+                            key={link.label}
+                            href={link.href}
+                            className="hover:text-neutral-500 transition-colors duration-300"
+                        >
+                            {link.label}
+                        </Link>
+                    ))}     
                     <div className="flex flex-col items-center mt-5 gap-5">
                         <Link 
                             href={""} 

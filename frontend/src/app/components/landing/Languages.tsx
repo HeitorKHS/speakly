@@ -23,9 +23,9 @@ export function Languages(){
                 <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
                     {languages.map((language)=>(
                         <Link href={""} key={language.flag} className="flex gap-2">
-                            <div className="relative h-full w-full max-w-20 rounded-lg overflow-hidden">
+                            <div className="relative h-9 w-12 shrink-0 my-auto rounded-lg overflow-hidden">
                                 <Image
-                                    src={`/flags/${language.flag}.gif`}
+                                    src={`/flags/${language.flag}1.png`}
                                     alt={`Bandeira do pais ${language.flag}`}
                                     fill
                                     className="object-cover"
@@ -33,7 +33,7 @@ export function Languages(){
                             </div>
                             <div>
                                 <h3 className="font-semibold text-neutral-800">{language.name}</h3>
-                                <p className="text-sm text-neutral-500 whitespace-nowrap">{language.teachers} Professores</p>
+                                <p className="text-xs md:text-sm text-neutral-500 whitespace-nowrap">{language.teachers} Professores</p>
                             </div>
                         </Link>
                     ))}
