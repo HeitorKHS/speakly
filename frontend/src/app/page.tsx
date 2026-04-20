@@ -3,6 +3,7 @@ import { HowItWorks } from "./components/landing/HowItWorks";
 import { Features } from "./components/landing/Features";
 import { Languages } from "./components/landing/Languages";
 import { Testimonial } from "./components/landing/Testimonial";
+import { Faq } from "./components/landing/Faq";
 
 export default function Home(){
 
@@ -14,6 +15,7 @@ export default function Home(){
       <Features/>
       <Languages/>
       <Testimonial/>
+      <Faq/>
     </div>
     
   );

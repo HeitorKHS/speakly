@@ -13,17 +13,17 @@ export function Carousel({children}: CarouselProps){
 
     const [emblaRef, emblaApi] = useEmblaCarousel(
         { loop: true },
-        [Autoplay({ delay: 3000 })]
+        [Autoplay({ delay: 3500 })]
     );
 
     return(
 
         <div className="mt-16 relative">
             <button
-                className="hidden md:flex absolute -left-12 top-1/2 -translate-y-1/2 p-3 rounded-full cursor-pointer"
+                className="hidden md:flex absolute -left-12 top-1/2 -translate-y-1/2 rounded-full cursor-pointer"
                 onClick={() => emblaApi?.scrollPrev()}
             >
-                <BiChevronLeft />
+                <BiChevronLeft size={30}/>
             </button>
 
             <div className="overflow-hidden" ref={emblaRef}>
@@ -33,10 +33,10 @@ export function Carousel({children}: CarouselProps){
             </div>
 
             <button
-                className="hidden md:flex absolute -right-12 top-1/2 -translate-y-1/2 p-3 rounded-full cursor-pointer"
+                className="hidden md:flex absolute -right-12 top-1/2 -translate-y-1/2 rounded-full cursor-pointer"
                 onClick={() => emblaApi?.scrollNext()}
             >
-                <BiChevronRight />
+                <BiChevronRight size={30}/>
             </button>
         </div>
         

@@ -61,33 +61,33 @@ export function Header(){
                 </button>
             </nav>
 
-            {mobileOpen && (
-                <div className="p-4 lg:hidden flex flex-col text-neutral-800 font-semibold text-sm gap-2">
-                    {links.map((link)=>(
-                        <Link
-                            key={link.label}
-                            href={link.href}
-                            className="hover:text-neutral-500 transition-colors duration-300"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}     
-                    <div className="flex flex-col items-center mt-5 gap-5">
-                        <Link 
-                            href={""} 
-                            className="hover:text-neutral-500 transition-colors duration-300"
-                        >
-                            Entrar
-                        </Link>
-                        <Link 
-                            href={""} 
-                            className="w-full text-center p-2 border border-neutral-800 rounded-lg hover:text-neutral-500 hover:border-neutral-500 transition-colors duration-300"
-                        >
-                            Criar uma conta
-                        </Link>    
-                    </div>                      
-                </div>
-            )}
+            <div className={`flex flex-col text-neutral-800 font-semibold text-sm gap-2 transition-all duration-400 ease-in-out transform overflow-hidden
+                ${mobileOpen ? "opacity-100 translate-y-0 p-4" : "opacity-0 -translate-y-2 max-h-0 pointer-events-none"}`}>
+                {links.map((link)=>(
+                    <Link
+                        key={link.label}
+                        href={link.href}
+                        className="hover:text-neutral-500 transition-colors duration-300"
+                    >
+                        {link.label}
+                    </Link>
+                ))}     
+                <div className="flex flex-col items-center mt-5 gap-5">
+                    <Link 
+                        href={""} 
+                        className="hover:text-neutral-500 transition-colors duration-300"
+                    >
+                        Entrar
+                    </Link>
+                    <Link 
+                        href={""} 
+                        className="w-full text-center p-2 border border-neutral-800 rounded-lg hover:text-neutral-500 hover:border-neutral-500 transition-colors duration-300"
+                    >
+                        Criar uma conta
+                    </Link>    
+                </div>                      
+            </div>
+
         </header>
 
     )

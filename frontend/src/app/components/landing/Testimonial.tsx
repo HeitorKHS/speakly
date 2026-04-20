@@ -23,7 +23,7 @@ export function Testimonial(){
                 <Carousel>
                     {testimonials.map((testimonial)=>(
                         <div key={testimonial.name} className="flex-[0_0_80%] md:flex-[0_0_60%] lg:flex-[0_0_40%] px-4">
-                            <div className="p-6 border border-neutral-300 shadow-2xl rounded-2xl ">
+                            <div className="p-6 border border-neutral-300 shadow-2xl rounded-2xl">
                                 <div className="flex gap-4">
                                     <div className="relative w-full max-w-20 aspect-square rounded-2xl overflow-hidden">
                                         <Image
@@ -34,7 +34,8 @@ export function Testimonial(){
                                         />
                                     </div>
                                     <div className="my-auto">
-                                        <p className="text-lg font-semibold text-neutral-800">{testimonial.name}</p>
+                                        <p className="lg:text-lg font-semibold text-neutral-800">{testimonial.name}</p>
+                                        <span className="text-sm text-neutral-400 font-semibold">{testimonial.language}</span>
                                         <div className="flex gap-1 text-yellow-400">
                                             {Array.from({ length: testimonial.raiting }).map((_, i) => (
                                                 <FaStar key={i} />
@@ -42,7 +43,7 @@ export function Testimonial(){
                                         </div>
                                     </div>
                                 </div>
-                                <p className="p-4">
+                                <p className="mt-5">
                                     {testimonial.comment}
                                 </p>
                             </div>
