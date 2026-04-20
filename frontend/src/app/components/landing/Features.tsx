@@ -37,7 +37,7 @@ export function Features(){
 
     return(
 
-        <section className="py-22">
+        <section className="py-18" id="Por que nos escolher">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <p className="text-sm font-semibold text-violet-700 uppercase mb-3">Por que nos escolher</p>

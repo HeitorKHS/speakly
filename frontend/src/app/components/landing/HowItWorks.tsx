@@ -22,13 +22,13 @@ export function HowItWorks(){
 
     return(
 
-        <section className="py-18 md:py-24">
+        <section className="py-18" id="Como Funciona">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <p className="text-sm font-semibold text-violet-700 uppercase mb-3">Simples e rápido</p>
                     <h2 className="text-3xl sm:text-4xl font-bold">Como funciona</h2>
                 </div>
-                <div className="mt-16 grid lg:grid-cols-3 gap-15">
+                <div className="mt-16 grid md:grid-cols-3 gap-15">
                     {steps.map((step, index) => (
                         <div key={index} className="text-center">
                             <div className="relative inline-flex">

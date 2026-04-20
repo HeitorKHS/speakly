@@ -25,8 +25,8 @@ export function Download(){
                     <Image
                         src={"/img/download_mobile.png"}
                         alt={"Download"}
-                        width={350}
-                        height={350}
+                        width={300}
+                        height={300}
                         className="hidden md:block translate-y-15"
                     />
                 </div>

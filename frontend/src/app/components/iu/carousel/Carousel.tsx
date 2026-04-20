@@ -20,7 +20,7 @@ export function Carousel({children}: CarouselProps){
 
         <div className="mt-16 relative">
             <button
-                className="hidden md:flex absolute -left-12 top-1/2 -translate-y-1/2 rounded-full cursor-pointer"
+                className="hidden md:flex absolute -left-8 top-1/2 -translate-y-1/2 rounded-full cursor-pointer"
                 onClick={() => emblaApi?.scrollPrev()}
             >
                 <BiChevronLeft size={30}/>
@@ -33,7 +33,7 @@ export function Carousel({children}: CarouselProps){
             </div>
 
             <button
-                className="hidden md:flex absolute -right-12 top-1/2 -translate-y-1/2 rounded-full cursor-pointer"
+                className="hidden md:flex absolute -right-8 top-1/2 -translate-y-1/2 rounded-full cursor-pointer"
                 onClick={() => emblaApi?.scrollNext()}
             >
                 <BiChevronRight size={30}/>

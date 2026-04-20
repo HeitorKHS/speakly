@@ -14,13 +14,13 @@ export function Languages(){
 
     return(
 
-        <section className="py-22">
+        <section className="py-18" id="Idiomas">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <p className="text-sm font-semibold text-violet-700 uppercase mb-3">Idiomas populares</p>
                     <h2 className="text-3xl sm:text-4xl font-bold">Mais de 50 idiomas disponíveis</h2>
                 </div>
-                <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 justify-items-center">
                     {languages.map((language)=>(
                         <Link href={""} key={language.flag} className="flex gap-2">
                             <div className="relative h-9 w-12 shrink-0 my-auto rounded-lg overflow-hidden">
