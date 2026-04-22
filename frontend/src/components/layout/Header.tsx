@@ -46,7 +46,7 @@ export function Header(){
                             Entrar
                         </Link>
                         <Link 
-                            href={""} 
+                            href={"/register/student"} 
                             className="p-2 border border-neutral-800 rounded-lg hover:text-neutral-500 hover:border-neutral-500 transition-colors duration-300"
                         >
                             Criar uma conta
