@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { Language, getLanguage } from "@/services/languageService";
+import { getLanguage } from "@/services/languageService";
+import { Language } from "@/types";
 
 export function useLanguage(){
 

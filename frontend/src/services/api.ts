@@ -14,7 +14,7 @@ api.interceptors.request.use((config)=>{
 
     //Se existir, ele adiciona no header da requisição
     if(token){
-        config.headers.Authorization = `Bears ${token}`
+        config.headers.Authorization = `Bearer ${token}`
     }
 
     return config;
