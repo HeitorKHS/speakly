@@ -76,7 +76,7 @@ export default function Student(){
                                     type="text"
                                     placeholder="Nome"
                                     {...register("name")}
-                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder:text-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
+                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                                 />
                                 {errors.name && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.name.message}</span>}
                              </div>
@@ -86,7 +86,7 @@ export default function Student(){
                                     type="email"
                                     placeholder="E-mail"
                                     {...register("email")}
-                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder:text-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
+                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                                 />
                                 {errors.email && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.email.message}</span>}
                             </div>
@@ -96,7 +96,7 @@ export default function Student(){
                                     type="password"
                                     placeholder="Senha"
                                     {...register("password")}
-                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder:text-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
+                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                                 />
                                 {errors.password && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.password.message}</span>}
                             </div>
@@ -106,7 +106,7 @@ export default function Student(){
                                     type="password"
                                     placeholder="Confirmar senha"
                                     {...register("confirmPassword")}
-                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder:text-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
+                                    className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                                 />
                                 {errors.confirmPassword && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.confirmPassword.message}</span>}
                             </div>
@@ -162,7 +162,7 @@ export default function Student(){
                         
                     </form>
                     <div className="mt-4 text-center">
-                        <p className="text-neutral-600 text-sm">Já tem uma conta ? <Link href={""} className="text-violet-500 hover:underline">Entrar</Link></p>
+                        <p className="text-neutral-600 text-sm">Já tem uma conta ? <Link href={"/login"} className="text-violet-500 hover:underline">Entrar</Link></p>
                     </div>     
                 </div>
             </div>

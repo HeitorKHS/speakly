@@ -40,7 +40,7 @@ export function Header(){
                     </div>
                     <div className="flex items-center gap-5">
                         <Link 
-                            href={""} 
+                            href={"/login"} 
                             className="hover:text-neutral-500 transition-colors duration-300"
                         >
                             Entrar
@@ -74,13 +74,13 @@ export function Header(){
                 ))}     
                 <div className="flex flex-col items-center mt-5 gap-5">
                     <Link 
-                        href={""} 
+                        href={"/login"} 
                         className="hover:text-neutral-500 transition-colors duration-300"
                     >
                         Entrar
                     </Link>
                     <Link 
-                        href={""} 
+                        href={"/register/student"} 
                         className="w-full text-center p-2 border border-neutral-800 rounded-lg hover:text-neutral-500 hover:border-neutral-500 transition-colors duration-300"
                     >
                         Criar uma conta
