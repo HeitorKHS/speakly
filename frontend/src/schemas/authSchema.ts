@@ -11,4 +11,10 @@ export const registerStudentSchema = z.object({
     path: ["confirmPassword"],
 }); //Refine faz validação customizada, data contem todos os campos do schema, compara password e confirmPassword se são iguais, se for tudo ok, se não for aparece a mensagem de erro no campo confirmPassword
 
+export const loginSchema = z.object({
+    email: z.email("E-mail inválido"),
+    password: z.string(),
+});
+
+export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterStudentSchema = z.infer<typeof registerStudentSchema>;

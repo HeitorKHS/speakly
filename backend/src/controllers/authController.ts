@@ -76,7 +76,18 @@ export class AuthController{
                 role: user.role,
             });
 
-            return reply.status(200).send(token);
+            //"token" é o nome do token
+            //token é os dados do token
+            //httpOnly não permite que o javascript acesse esse cookie
+            //secure cookies só é enviado através de conexões https 
+            //sameTime controla se o cookie é enviado em requisições vindas de outros sites
+            //path define em quais URLs do seu site esse cookie estará disponível
+            return reply.setCookie("token", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "lax",
+                path: "/",
+            }).status(200).send({ok: true});
 
         } catch(error:any) {
             

@@ -1,8 +1,34 @@
+'use client'
+
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { DiApple } from "react-icons/di";
+import { BiError } from "react-icons/bi";
+import { useForm } from "react-hook-form";
+import { LoginSchema, loginSchema } from "@/schemas/authSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login(){
+
+    const { handleLogin } = useAuth();
+
+    const {
+        register, //Register cria no input o name, onChange, onBlur, ref
+        handleSubmit, //event.preventDefault() e valida os dados com o zod
+        setError,
+        formState: {errors}, //Ele salva os erros dos campos
+    } = useForm<LoginSchema>({
+        resolver: zodResolver(loginSchema),
+        defaultValues:{
+            email: "",
+            password: "",
+        }
+    });
+
+    const onSubmit = async (data: LoginSchema) => {
+        await handleLogin(data, setError);
+    }
 
     return(
 
@@ -13,22 +39,27 @@ export default function Login(){
                     <p className="text-neutral-800 text-xl">Bem-vindo ao Speakly</p>
                 </div>
                 <div>
-                    <form action="">
+                    {errors.root && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.root.message}</span>}
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-6">
                             <label className="font-semibold text-neutral-800/90">E-mail</label>
                             <input 
                                 type="email"
                                 placeholder="E-mail"
+                                {...register("email")}
                                 className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                             />
+                            {errors.email && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.email.message}</span>}
                         </div>
                         <div className="mb-6">
                             <label className="font-semibold text-neutral-800/90">Senha</label>
                             <input 
                                 type="password"
                                 placeholder="Senha"
+                                {...register("password")}
                                 className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                             />
+                            {errors.password && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.password.message}</span>}
                         </div>
                         <button
                             type="submit"
