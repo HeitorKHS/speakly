@@ -56,4 +56,16 @@ export class AuthService{
 
     }
 
+    async getMe(id: string){
+
+        const user = await authRepository.getMe(id);
+
+        if(!user){
+            throw new Error ("Usuário não encontrado");
+        }
+
+        return user;
+
+    }
+
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { AuthProvider } from "@/provider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Projeto escola",
@@ -13,9 +14,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR">
       <body>
-        <Header/>
-        {children}
-        <Footer/>
+        <AuthProvider>
+          <Header/>
+            {children}
+          <Footer/>
+        </AuthProvider>
       </body>
     </html>
   );

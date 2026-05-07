@@ -17,6 +17,7 @@ const teacherSchema = z.object({
 
 const studentSchema = z.object({
     name: z.string().min(1, "Nome é obrigatorio"),
+    avatarUrl: z.url().optional(),
     studentLanguageGoal: z.array(z.string()).min(1, "Informe ao menos um idioma que quer aprender"),
 });
 

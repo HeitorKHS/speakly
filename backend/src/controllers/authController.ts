@@ -7,6 +7,7 @@ import { createTeacherSchema, createStudentSchema, loginSchema } from "../schema
     200 - Operação realizada com sucesso
     201 - Criado com sucesso
     400 - Dados inválidos (erro do Zod)
+    404 - Não encontrado
     409 - E-mail já em uso
     500 - Erro no servidor
 */}
@@ -87,7 +88,12 @@ export class AuthController{
                 secure: true,
                 sameSite: "lax",
                 path: "/",
-            }).status(200).send({ok: true});
+            }).status(200).send({
+                id: user.id,
+                role: user.role,
+                name: user.studentProfile?.name ?? user.teacherProfile?.name,
+                avatarUrl: user.studentProfile?.avatarUrl ?? user.teacherProfile?.avatarUrl,
+            });
 
         } catch(error:any) {
             
@@ -99,6 +105,45 @@ export class AuthController{
                 return reply.status(400).send({ message: error?.issues });
             }
 
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+
+    async getMe(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            const { sub } = request.user as {sub: string};
+            const user = await authService.getMe(sub);
+            return reply.status(200).send({
+                id: user.id,
+                role: user.role,
+                name: user.studentProfile?.name ?? user.teacherProfile?.name,
+                avatarUrl: user.studentProfile?.avatarUrl ?? user.teacherProfile?.avatarUrl,
+            });
+
+        } catch(error:any) {
+            
+            if(error.message === "Usuário não encontrado"){
+                return reply.status(404).send({ message: error.message });
+            }
+
+            return reply.status(500).send({ message: "Erro no servidor" });
+
+        }
+
+    }
+
+    async logout(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            return reply.clearCookie("token", { path: "/" }).send({ ok: true });// remove cookie httpOnly
+
+        } catch(error:any) {
+            
             return reply.status(500).send({ message: "Erro no servidor" });
 
         }

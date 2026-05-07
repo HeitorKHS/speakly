@@ -4,3 +4,9 @@ export interface Language{
     code: string,
 };
 
+export interface User{
+    id: string,
+    name: string,
+    role: string,
+    avatarUrl: string | null,
+};

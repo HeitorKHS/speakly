@@ -53,12 +53,26 @@ export class AuthRepository{
 
         return await prisma.user.findUnique({
             where: {email},
-            include: {
-                teacherProfile: { select: { id: true } },
-                studentProfile: { select: { id: true } },
-            },
+            include:{
+                teacherProfile: true,
+                studentProfile: true,
+            }
         });
         
+    }
+
+    async getMe(id: string){
+
+        return await prisma.user.findUnique({
+            where: {id},
+            select: {
+                id: true,
+                role: true,
+                teacherProfile: { select: {name: true, avatarUrl: true} },
+                studentProfile: { select: {name: true, avatarUrl: true} },
+            },
+        });
+
     }
 
 }
