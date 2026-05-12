@@ -11,6 +11,21 @@ export const registerStudentSchema = z.object({
     path: ["confirmPassword"],
 }); //Refine faz validação customizada, data contem todos os campos do schema, compara password e confirmPassword se são iguais, se for tudo ok, se não for aparece a mensagem de erro no campo confirmPassword
 
+export const registerTeacherSchema = z.object({
+    name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").min(1, "Nome é obrigatorio"),
+    email: z.email("E-mail inválido").min(1, "E-mail é obrigatorio"),
+    password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres").min(1, "Senha é obrigatório"),
+    confirmPassword: z.string().min(1, "Confirmação de senha é obrigatório"),
+    bio: z.string().min(1, "Bio é obrigatório"),
+    description: z.string().min(1, "Descrição é obrigatório"),
+    price: z.number().min(1, "Preço é obrigatório").positive("Preço deve ser maior que zero"),
+    teacherLanguageTaught: z.array(z.string()).min(1, "Informe ao menos um idioma que ensina"),
+    teacherLanguageSpoken: z.array(z.string()).min(1, "Informe ao menos um idioma que fala"),
+}).refine((data)=>data.password === data.confirmPassword, {
+    message: "As senhas não coincidem",
+    path: ["confirmPassword"],
+});
+
 export const loginSchema = z.object({
     email: z.email("E-mail inválido"),
     password: z.string(),
@@ -18,3 +33,4 @@ export const loginSchema = z.object({
 
 export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterStudentSchema = z.infer<typeof registerStudentSchema>;
+export type RegisterTeacherSchema = z.infer<typeof registerTeacherSchema>;

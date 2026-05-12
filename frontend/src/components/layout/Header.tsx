@@ -12,7 +12,7 @@ const links = [
     {href: "", label: "Opção 1"},
     {href: "", label: "Opção 2"},
     {href: "", label: "Opção 3"},
-    {href: "", label: "Seja um professor"},
+    {href: "/register/teacher", label: "Seja um professor"},
 ];
 
 export function Header(){

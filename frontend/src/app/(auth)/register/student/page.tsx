@@ -59,13 +59,13 @@ export default function Student(){
 
         <div className="min-h-screen pt-16.5 lg:pt-18 overflow-hidden flex">
             <div className="flex-1 flex flex-col md:flex-row">
-                <div className="flex-1 flex items-center p-10 md:p-20 md:w-1/2 bg-violet-700">
+                <div className="flex items-center p-10 md:p-20 md:w-1/2 bg-violet-700">
                     <div className="text-white">
                         <h2 className="text-2xl md:text-3xl mb-2 font-semibold">Crie sua conta gratuita</h2>
                         <p className="text-sm">Explore novos idiomas, conecte-se com culturas e amplie suas oportunidades.</p>  
                     </div>
                 </div>
-                <div className="flex-1 p-10 md:p-20">
+                <div className="md:w-1/2 p-10 md:p-20">
                     <h2 className="text-xl font-bold text-center mb-5">Inscreva-se no Speakly</h2>
                     {errors.root && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.root.message}</span>}
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -116,7 +116,7 @@ export default function Student(){
                                     <select
                                         value={languageGoals.selectedLanguageId}
                                         onChange={(e)=>languageGoals.setSelectedLanguageId(e.target.value)}
-                                        className="w-full border border-neutral-300 rounded-lg px-2 py-1 focus:outline-none focus:border-violet-700"
+                                        className="w-full border border-neutral-300 rounded-lg text-sm pl-2 pr-4 py-1 focus:outline-none focus:border-violet-700"
                                     >
                                         <option value="">Selecione um idioma</option>
                                         {languages.map((language)=>(
