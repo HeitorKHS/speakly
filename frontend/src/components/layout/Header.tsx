@@ -1,12 +1,12 @@
 'use client'
 
 import Link from "next/link";
-import { BiMenu, BiX  } from "react-icons/bi";
 import { useEffect, useState, useRef } from "react";
 import { useAuthProvider } from "@/provider/AuthProvider";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
-import { BiUser, BiStar, BiCalendar, BiLogOut } from "react-icons/bi";
+import { BiUser, BiStar, BiCalendar, BiLogOut, BiMenu, BiX } from "react-icons/bi";
+import { TbClockHour3, TbCalendarWeek  } from "react-icons/tb";
 
 const links = [
     {href: "", label: "Opção 1"},
@@ -86,7 +86,7 @@ export function Header(){
                     >
                         <BiMenu size={30}/>
                     </button>
-                    {user && user.role === "STUDENT" ? (
+                    {user ? (
                         <div className="relative" ref={menuRef}>
                             <div className="relative h-8 w-8 rounded-full overflow-hidden">
                                 <button
@@ -103,7 +103,7 @@ export function Header(){
                             </div>                        
                             <div className={`
                                 fixed inset-0 flex flex-col bg-white
-                                md:absolute md:inset-auto md:right-0 md:w-50 md:rounded-2xl md:shadow-2xl md:border md:border-neutral-100
+                                md:absolute md:inset-auto md:right-0 md:min-w-50 md:rounded-2xl md:shadow-2xl md:border md:border-neutral-100
                                 ${menuDropdown ? "opacity-100" : "opacity-0 max-h-0 pointer-events-none"}`}>
                                 <div className="flex md:hidden justify-end px-4 sm:px-6 h-10">
                                     <button 
@@ -113,11 +113,23 @@ export function Header(){
                                         <BiX size={30}/> 
                                     </button>
                                 </div>
-                                <div className="flex flex-col text-neutral-800 text-sm font-normal p-2">
-                                    <p className="p-2 border-b border-neutral-300">Olá, {user.name}</p>                           
-                                    <Link href={"/"} className="flex items-center gap-2 p-2">{<BiUser size={18}/>}Perfil</Link>
-                                    <Link href={"/"} className="flex items-center gap-2 p-2">{<BiStar size={18}/>}Favoritos</Link>
-                                    <Link href={"/"} className="flex items-center gap-2 p-2">{<BiCalendar size={18}/>}Agenda</Link>                                    
+                                <div className="flex flex-col text-neutral-800 text-sm font-normal p-2 whitespace-nowrap">
+                                    <p className="p-2 border-b border-neutral-300">Olá, {user.name}</p>
+                                    {user.role === "STUDENT" ? (
+                                        <div>
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<BiUser size={18}/>}Perfil</Link>
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<BiStar size={18}/>}Favoritos</Link>
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<TbClockHour3 size={18}/>}Agenda</Link>  
+                                        </div>
+                                        ):(
+                                        <div>
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<BiUser size={18}/>}Perfil</Link>
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<TbClockHour3 size={18}/>}Agenda</Link>  
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<BiCalendar size={18}/>}Calendário</Link>  
+                                            <Link href={"/"} className="flex items-center gap-2 p-2">{<TbCalendarWeek  size={18}/>}Disponibilidade semanal</Link>
+                                        </div>
+                                    )}                        
+                                  
                                     <div className="p-2 border-t border-neutral-300">
                                         <button 
                                             className="cursor-pointer flex items-center gap-2"
@@ -133,7 +145,7 @@ export function Header(){
                             </div>        
                         </div>
                     ):(
-                        <div className="flex items-center gap-5">
+                        <div className="hidden md:flex flex items-center gap-5">
                             <Link 
                                 href={"/login"} 
                                 className="hover:text-neutral-500 transition-colors duration-300"
@@ -172,7 +184,7 @@ export function Header(){
                             </Link>
                         ))}
                     </div> 
-                    <div className="flex flex-col items-center px-5 mt-5 gap-5">
+                    {!user && (<div className="flex flex-col items-center px-5 mt-5 gap-5">
                         <Link 
                             href={"/login"} 
                             className="hover:text-neutral-500 transition-colors duration-300"
@@ -185,7 +197,7 @@ export function Header(){
                         >
                             Criar uma conta
                         </Link>    
-                    </div>                      
+                    </div>)}                
                 </div> 
         </header>
 

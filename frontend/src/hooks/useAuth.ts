@@ -1,4 +1,4 @@
-import { RegisterStudentSchema, LoginSchema } from "@/schemas/authSchema";
+import { RegisterStudentSchema, LoginSchema, RegisterTeacherSchema } from "@/schemas/authSchema";
 import Services from "@/services";
 import { useRouter } from "next/navigation";
 import { UseFormSetError } from "react-hook-form"
@@ -26,6 +26,26 @@ export function useAuth(){
             }
         }
     
+    }
+
+    const handleRegisterTeacher = async (data: RegisterTeacherSchema, setError: UseFormSetError<RegisterTeacherSchema>) => {
+
+        try {
+            
+            await Services.Auth.registerTeacher(data);
+
+            router.push("/");
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error:any) {
+            
+            if(error.response?.status === 409){
+                setError("email", {message: error.response?.data?.message});
+            } else{
+                setError("root", {message: error.response?.data?.message});
+            }
+
+        }
+
     }
 
     const handleLogin = async (data: LoginSchema, setError: UseFormSetError<LoginSchema>) => {
@@ -70,6 +90,7 @@ export function useAuth(){
         handleRegisterStudent,
         handleLogin,
         handleLogout,
+        handleRegisterTeacher,
     }
 
 }

@@ -6,12 +6,15 @@ import { RegisterTeacherSchema, registerTeacherSchema } from "@/schemas/authSche
 import { BiError, BiSolidTrashAlt } from "react-icons/bi";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSelectedLanguages } from "@/hooks/useSelectedLanguages";
+import { useAuth } from "@/hooks/useAuth";
+import Link from "next/link";
 
 export default function Teacher(){
 
     const {languages} = useLanguage();
     const languageTaught = useSelectedLanguages();
     const languageSpoken = useSelectedLanguages();
+    const {handleRegisterTeacher} = useAuth();
 
     const {
         register,
@@ -70,8 +73,8 @@ export default function Teacher(){
 
     }
 
-    const onsubmit = () => {
-
+    const onsubmit = async (data: RegisterTeacherSchema) => {
+        await handleRegisterTeacher(data, setError)
     }
 
     return(
@@ -152,7 +155,7 @@ export default function Teacher(){
                                 <input 
                                     type="text"
                                     placeholder="Preço"
-                                    {...register("price")}
+                                    {...register("price", { valueAsNumber: true })}
                                     className="mt-2 w-full rounded-lg px-2 py-1 placeholder-neutral-500 border border-neutral-300 focus:outline-none focus:border-violet-700 transition-colors duration-300"
                                 />
                                 {errors.price && <span className="flex items-center gap-2 text-sm text-red-500"><BiError/>{errors.price.message}</span>}
@@ -242,7 +245,16 @@ export default function Teacher(){
                                 </div>
                             </div>
                         </div>
+                        <button
+                            type="submit"
+                            className="py-2 w-full text-white font-semibold bg-neutral-800 hover:bg-neutral-700 rounded-md cursor-pointer transition-colors duration-300"
+                        >
+                            Criar conta
+                        </button>
                     </form>
+                    <div className="mt-4 text-center">
+                        <p className="text-neutral-600 text-sm">Já tem uma conta ? <Link href={"/login"} className="text-violet-500 hover:underline">Entrar</Link></p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,8 +1,13 @@
 import { api } from "./api";
-import { RegisterStudentSchema, LoginSchema } from "@/schemas/authSchema";
+import { RegisterStudentSchema, LoginSchema, RegisterTeacherSchema } from "@/schemas/authSchema";
 
 export async function registerStudent(data: RegisterStudentSchema){
     const response = await api.post("/register/student", data);
+    return response.data;
+}
+
+export async function registerTeacher(data: RegisterTeacherSchema){
+    const response = await api.post("/register/teacher", data);
     return response.data;
 }
 
