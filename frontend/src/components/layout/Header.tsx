@@ -145,7 +145,7 @@ export function Header(){
                             </div>        
                         </div>
                     ):(
-                        <div className="hidden md:flex flex items-center gap-5">
+                        <div className="hidden md:flex items-center gap-5">
                             <Link 
                                 href={"/login"} 
                                 className="hover:text-neutral-500 transition-colors duration-300"

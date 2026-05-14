@@ -19,7 +19,7 @@ export class AuthService{
         const hashedPassword = await bcrypt.hash(data.password, 10);
         const user = await authRepository.createTeacher(data, hashedPassword);
 
-        return user.id;
+        return user;
 
     }
 
@@ -34,7 +34,7 @@ export class AuthService{
         const hashedPassword = await bcrypt.hash(data.password, 10);
         const user = await authRepository.createStudent(data, hashedPassword);
         
-        return user.id;
+        return user;
 
     }
 

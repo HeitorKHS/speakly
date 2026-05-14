@@ -22,7 +22,24 @@ export class AuthController{
             
             const body = createTeacherSchema.parse(request.body);
             const user = await authService.createTeacher(body);
-            return reply.status(201).send(user);
+
+            const token = await reply.jwtSign({
+                sub: user.id,
+                profileId: user.teacherProfile?.id,
+                role: user.role,
+            });
+
+            return reply.setCookie("token", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "lax",
+                path: "/",
+            }).status(201).send({
+                id: user.id,
+                role: user.role,
+                name: user.teacherProfile?.name,
+                avatarUrl: user.teacherProfile?.avatarUrl,
+            });
 
         } catch(error:any) {
             
@@ -46,7 +63,24 @@ export class AuthController{
             
             const body = createStudentSchema.parse(request.body);
             const user = await authService.createStudent(body);
-            return reply.status(201).send(user);
+
+            const token = await reply.jwtSign({
+                sub: user.id,
+                profileId: user.studentProfile?.id,
+                role: user.role,
+            });
+
+            return reply.setCookie("token", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "lax",
+                path: "/",
+            }).status(201).send({
+                id: user.id,
+                role: user.role,
+                name: user.studentProfile?.name,
+                avatarUrl: user.studentProfile?.avatarUrl,
+            });
 
         } catch(error:any) {
             

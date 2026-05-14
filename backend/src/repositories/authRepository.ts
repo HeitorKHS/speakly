@@ -25,7 +25,10 @@ export class AuthRepository{
                         },
                     },
                 },
-            }
+            },
+            include:{
+                teacherProfile: true,
+            },
         });
 
     }
@@ -44,6 +47,9 @@ export class AuthRepository{
                         },
                     },
                 },
+            },
+            include:{
+                studentProfile: true,
             },
         });
 

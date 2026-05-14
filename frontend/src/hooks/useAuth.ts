@@ -13,8 +13,8 @@ export function useAuth(){
     
         try {
 
-            await Services.Auth.registerStudent(data);
-
+            const user = await Services.Auth.registerStudent(data);
+            setUser(user);
             router.push("/");
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch(error:any) {
@@ -32,8 +32,8 @@ export function useAuth(){
 
         try {
             
-            await Services.Auth.registerTeacher(data);
-
+            const user = await Services.Auth.registerTeacher(data);
+            setUser(user);
             router.push("/");
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error:any) {

@@ -23,7 +23,7 @@ export function Testimonial(){
                 <Carousel>
                     {testimonials.map((testimonial)=>(
                         <div key={testimonial.name} className="flex-[0_0_80%] md:flex-[0_0_60%] lg:flex-[0_0_40%] px-4">
-                            <div className="p-6 border border-neutral-300 shadow-2xl rounded-2xl">
+                            <div className="p-6 border border-neutral-300 rounded-2xl">
                                 <div className="flex gap-4">
                                     <div className="relative w-full max-w-20 aspect-square rounded-2xl overflow-hidden">
                                         <Image

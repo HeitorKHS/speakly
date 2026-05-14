@@ -11,7 +11,7 @@ export function Footer(){
 
     return(
 
-        <footer className="bg-neutral-200">
+        <footer className="bg-neutral-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
                     <Link 
